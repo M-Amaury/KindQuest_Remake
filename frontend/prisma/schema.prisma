@@ -1,0 +1,34 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(uuid())
+  username  String   @unique
+  password  String
+  xrplAddress String? @unique
+  evmAddress String? @unique
+  isAdmin   Boolean  @default(false)
+  isVerifier Boolean  @default(false)
+  createdAt   DateTime  @default(now())
+  missions Mission[]
+}
+
+model Mission {
+  id          String    @id @default(uuid())
+  name        String    // Pour affichage dans l'interface admin
+  description String    // Pour affichage dans l'interface admin
+  xrpReward   Int
+  kindReward  Int
+  isActive    Boolean   @default(true)
+  createdAt   DateTime  @default(now())
+  participants User[]
+}
