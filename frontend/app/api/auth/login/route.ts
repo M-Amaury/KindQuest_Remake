@@ -3,7 +3,10 @@ import { compare } from "bcrypt";
 import { prisma } from "@/lib/prisma";
 import { sign } from "jsonwebtoken";
 
-const JWT_SECRET = process.env.JWT_SECRET || 'your-secret-key';
+const JWT_SECRET = process.env.JWT_SECRET!
+if (!JWT_SECRET) {
+  throw new Error("JWT_SECRET is not defined");
+}
 
 export async function POST(req: Request) {
   try {
@@ -12,6 +15,14 @@ export async function POST(req: Request) {
     // Vérifier si l'utilisateur existe
     const user = await prisma.user.findUnique({
       where: { username },
+      select: {
+        id: true,
+        username: true,
+        password: true,
+        isAdmin: true,
+        xrplAddress: true,
+        evmAddress: true,
+      },
     });
 
     if (!user) {
@@ -30,11 +41,12 @@ export async function POST(req: Request) {
       );
     }
 
-    // Créer le token JWT
+    // Créer le token JWT avec isAdmin
     const token = sign(
       {
         id: user.id,
         username: user.username,
+        isAdmin: user.isAdmin,
         xrplAddress: user.xrplAddress,
         evmAddress: user.evmAddress,
       },
@@ -47,6 +59,7 @@ export async function POST(req: Request) {
       user: {
         id: user.id,
         username: user.username,
+        isAdmin: user.isAdmin,
         xrplAddress: user.xrplAddress,
         evmAddress: user.evmAddress,
       },

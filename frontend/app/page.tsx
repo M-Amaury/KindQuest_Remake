@@ -1,14 +1,12 @@
 'use client';
 
 import { useState } from 'react';
-import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 
 export default function LoginPage() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
-  const router = useRouter();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -27,9 +25,8 @@ export default function LoginPage() {
         throw new Error(data.error || 'Une erreur est survenue');
       }
 
-      // Redirection vers le dashboard après connexion réussie
-      router.push('/dashboard');
-
+      // Redirection et rechargement
+      window.location.href = '/missions';
     } catch (err: any) {
       setError(err.message);
     }

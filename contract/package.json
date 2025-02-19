@@ -17,7 +17,9 @@
   "devDependencies": {
     "@nomicfoundation/hardhat-ethers": "^3.0.8",
     "@nomicfoundation/hardhat-toolbox-viem": "^3.0.0",
+    "@typechain/ethers-v6": "^0.5.1",
     "ethers": "^6.13.5",
-    "hardhat": "^2.22.18"
+    "hardhat": "^2.22.18",
+    "typechain": "^8.3.2"
   }
 }
