@@ -44,20 +44,6 @@ KindQuest a vu le jour lors d'un hackathon où nous avions développé une versi
 - **Validation des missions**
 - **Suivi des transactions**
 
-## 🏗️ Structure du Projet
-
-frontend/
-├── app/
-│ ├── register/ # Page d'inscription
-│ ├── missions/ # Page des missions
-│ ├── admin/
-│ │ ├── validate/ # Validation admin
-│ │ └── create-mission/ # Création de missions
-│ └── ... # Autres pages
-├── components/ # Composants réutilisables
-├── lib/ # Utilitaires et helpers
-├── prisma/ # Schémas et migrations Prisma
-└── public/ # Assets statiques
 
 ## 🔐 Configuration des Variables d'Environnement
 
