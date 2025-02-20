@@ -10,7 +10,7 @@ export default function RegisterPage() {
   const [error, setError] = useState('');
   const [keys, setKeys] = useState<{
     xrplSeed?: string;
-    evmPrivateKey?: string;
+    evmPrivateKey?: string; 
     xrplAddress?: string;
     evmAddress?: string;
   } | null>(null);
