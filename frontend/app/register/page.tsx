@@ -1,56 +1,54 @@
 'use client';
 
 import { useState } from 'react';
-import { useRouter } from 'next/navigation';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 
 export default function RegisterPage() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
   const [keys, setKeys] = useState<{
     xrplSeed?: string;
-    evmPrivateKey?: string; 
+    evmPrivateKey?: string;
     xrplAddress?: string;
     evmAddress?: string;
   } | null>(null);
-  
+
   const router = useRouter();
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async(e: React.FormEvent) => {
     e.preventDefault();
-    setError('');
+    setError("");
 
     try {
-      const res = await fetch('/api/auth/register', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ username, password }),
+      const res = await fetch("/api/auth/register", {
+        method: "POST",
+        headers: { "Content-Type": "application/json"},
+        body: JSON.stringify({ username, password})
       });
 
       const data = await res.json();
 
-      if (!res.ok) {
-        throw new Error(data.error || 'Une erreur est survenue');
+      if(!res.ok){
+        throw new Error(data.error || "Erreur lors de l'inscription");
       }
 
-      // Stocker les clés pour les montrer à l'utilisateur
       setKeys({
         xrplSeed: data.xrplSeed,
-        evmPrivateKey: data.evmPrivateKey,
         xrplAddress: data.user.xrplAddress,
+        evmPrivateKey: data.evmPrivateKey,
         evmAddress: data.user.evmAddress,
-      });
+      })
 
-      // Rediriger après 10 secondes pour laisser le temps de sauvegarder les clés
       setTimeout(() => {
         router.push('/');
-      }, 10000);
-
-    } catch (err: any) {
-      setError(err.message);
+      }, 30000);
+    } catch(error: any){
+      setError(error.message);
     }
-  };
+  }
+
 
   if (keys) {
     return (
@@ -67,7 +65,7 @@ export default function RegisterPage() {
             </div>
           </div>
           <p className="text-sm text-gray-600">
-            Redirection automatique vers la page de connexion dans quelques secondes...
+            Redirection automatique vers la page de connexion dans 30 secondes...
           </p>
         </div>
       </div>

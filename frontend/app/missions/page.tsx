@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 'use client';
 
 import { useState, useEffect } from 'react';
@@ -114,3 +115,12 @@ export default function MissionsPage() {
     </div>
   );
 } 
+=======
+export default function Missions(){
+    return(
+        <div>
+            Missions
+        </div>
+    )
+}
+>>>>>>> 33e616bb7a10880010ae1f9104db245c76fbcef7
